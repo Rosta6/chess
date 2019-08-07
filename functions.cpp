@@ -29,15 +29,31 @@ public:
             }
             
         }
-        
-    }
-
-    void PositionOfPiece(){
-        
+        char arrayPiecesWhite[] = {'R', 'N', 'B', 'Q', 'K', 'B','N','R'};  //array of Pieces
+        char arrayPiecesBlack[] = {'r', 'n', 'b', 'q', 'k', 'b','n','r'};  //array of Pieces
+        int help[2] = {1,2};
+        for (int i = 0; i<8;i++){
+            help[1] = 2 + i*6;
+            placePiece(help, arrayPiecesWhite[i]);
+        }
+        help[0] = 4;
+        for (int i = 0; i<8;i++){
+            help[1] = 2 + i*6;
+            placePiece(help, 'P');
+        }
+        help[0] = 22;
+        for (int i = 0; i<8;i++){
+            help[1] = 2 + i*6;
+            placePiece(help, arrayPiecesBlack[i]);
+        }
+        help[0] = 19;
+        for (int i = 0; i<8;i++){
+            help[1] = 2 + i*6;
+            placePiece(help, 'p');
+        }            
     }
     
     void printBoard(){
-        int prepinac = 0;
         int prepinacRow = 0;
         int n = 8;
 
@@ -65,26 +81,30 @@ public:
             for (int j = 0; j < X; j++)
             {   
                     if(prepinacRow == 0){
-                        if(j%6 == 0 && prepinac == 0)
+                        if(inRange(0,5,j) || inRange(12,17,j) || inRange(24,29,j) || inRange(36,41,j))
                     {
                         SetConsoleTextAttribute(color, 0);
-                        prepinac = 1;
-                    }else if(j%6 == 0 && prepinac == 1){
+                    }else if(inRange(6,11,j) || inRange(18,23,j) || inRange(30,35,j) || inRange(42,47,j)){
                         SetConsoleTextAttribute(color, 15);
-                        prepinac = 0;
                      }
                     }else{
-                        if(j%6 == 0 && prepinac == 0)
+                        if(prepinacRow == 1){
+                        if(inRange(0,5,j) || inRange(12,17,j) || inRange(24,29,j) || inRange(36,41,j))
                     {
                         SetConsoleTextAttribute(color, 15);
-                        prepinac = 1;
-                    }else if(j%6 == 0 && prepinac == 1){
+                    }else if(inRange(6,11,j) || inRange(18,23,j) || inRange(30,35,j) || inRange(42,47,j)){
                         SetConsoleTextAttribute(color, 0);
-                        prepinac = 0;
+                     }
                      }
                     }
-                  
-                cout << board[i][j];
+                if((j == 2 || j == 8 || j == 14 || j == 20 || j == 26 || j == 32 || j == 38 || j == 44) && 1 == i%3){
+                    SetConsoleTextAttribute(color, 9);
+                    cout << board[i][j];
+                }else{
+                    cout << board[i][j];
+                }
+                
+                   
             }
             
             if(inRange(0,1,i) || inRange(5,7,i) || inRange(11,13,i) || inRange(17,19,i)){
@@ -119,6 +139,17 @@ public:
 
         
     }
+
+    void placePiece(int position[2], char chessType)
+    {       
+        board[position[0]][position[1]] = chessType; 
+    }
+
+    void removePiece(int position[2])
+    {
+        board[position[0]][position[1]] = box; 
+    }
+
     
 private:
     char board[Y][X];                //radek - sloupec
@@ -129,8 +160,31 @@ class chessPiece
 {
 public:
 
-private:
+void getPositionfromInput(string userInput)
+{
+        string delimiter = "-";                             //splitting string with user input
 
+        size_t pos = 0;
+        string oldPosotionString;
+        while ((pos = userInput.find(delimiter)) != string::npos) 
+        {
+        oldPosotionString = userInput.substr(0, pos);
+        cout << oldPosotionString << endl;
+        userInput.erase(0, pos + delimiter.length());
+        }
+        string newPositionString = userInput;
+        cout << newPositionString << endl;
+        }
+
+void convertPositionToIndex(string position){
+    if(position == "A8"){
+
+    }
+}        
+
+private:
+    int oldPosition[2];             // first position is X and second is Y value of chess piece
+    int newPosition[2];
 };
 
 

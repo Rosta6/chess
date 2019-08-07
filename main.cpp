@@ -9,23 +9,20 @@ int roundNumber = 0;                    //number of rounds
 int main(){
     chessBoardClass chessBoard;
     deque<Round> rounds;
+    chessPiece chessPiece;
 
     chessBoard.initBoard();
+    int help[2] = {1,2};
+    chessBoard.placePiece(help, 'R');
 
     system("cls");
-
-
-    wcout << L"ф";
-    wcout << "\u2654";
-
-    SetConsoleOutputCP(65001); 
-    printf("ф\n");
-    
+    chessPiece.getPositionfromInput("C4-C5");
     while(running){
     chessBoard.printBoard();
     menu();
     cout << "Enter your input: ";
     cin >> switchCase;
+    
     switch (switchCase)
     {
     case 1:
