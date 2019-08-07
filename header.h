@@ -1,4 +1,13 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <deque>
+#include <string>
+#include <windows.h>   // WinApi header
+
+
+#include <io.h>
+#include <fcntl.h>
+
+	
+
 
 using namespace std;
